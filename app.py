@@ -61,6 +61,18 @@ def listar_posts_por_autor(autor_id):
         "posts": lista_posts
     })
 
+@app.route('/autores', methods=['GET'])
+def listar_todos_autores():
+    print("Buscando todos os autores no banco de dados...")
+    autores = Autor.query.all()
+    
+    lista_autores = [autor.to_dict() for autor in autores]
+    
+    return jsonify({
+        "fonte": "Banco de Dados SQL",
+        "autores": lista_autores
+    })
+
 @app.route('/posts', methods=['POST'])
 def criar_post():
     dados = request.get_json()
